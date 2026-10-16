@@ -64,7 +64,7 @@ class LLMAgentService:
         agent = create_react_agent(
             model=self.llm,
             tools=news_tools,
-            state_modifier=system_prompt
+            prompt=system_prompt
         )
         return agent
         
@@ -82,6 +82,6 @@ class LLMAgentService:
         agent = create_react_agent(
             model=self.llm,
             tools=tools,
-            state_modifier=system_prompt
+            prompt=system_prompt
         )
         return agent

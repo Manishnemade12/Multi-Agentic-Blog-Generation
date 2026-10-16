@@ -25,6 +25,9 @@ def today_ist() -> str:
     ist = timezone(timedelta(hours=5, minutes=30))
     return datetime.now(ist).strftime("%Y-%m-%d")
 
+def console_text(value) -> str:
+    return str(value).encode("ascii", "replace").decode("ascii")
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -99,10 +102,10 @@ Examples
         md_path   = final_state.get("md_path", "?")
         read_time = final_state.get("read_time", "?")
         print(f"  Done!  Article generated successfully.")
-        print(f"  Title     : {title}")
-        print(f"  Domain    : {domain}")
-        print(f"  Read time : {read_time}")
-        print(f"  File      : {md_path}")
+        print(f"  Title     : {console_text(title)}")
+        print(f"  Domain    : {console_text(domain)}")
+        print(f"  Read time : {console_text(read_time)}")
+        print(f"  File      : {console_text(md_path)}")
     print(f"{'='*55}\n")
 
 

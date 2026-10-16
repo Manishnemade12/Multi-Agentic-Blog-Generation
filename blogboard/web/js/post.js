@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initReadingProgress();
 });
 
-const STORAGE_PUBLIC_URL = (typeof window !== 'undefined' && window.CONFIG && window.CONFIG.STORAGE_PUBLIC_URL)
+const POST_STORAGE_PUBLIC_URL = (typeof window !== 'undefined' && window.CONFIG && window.CONFIG.STORAGE_PUBLIC_URL)
     ? window.CONFIG.STORAGE_PUBLIC_URL.replace(/\/+$/, '')
     : '';
-const STORAGE_BASE_URL = STORAGE_PUBLIC_URL || '.';
+const POST_STORAGE_BASE_URL = POST_STORAGE_PUBLIC_URL || '.';
 
 /* ── Parse hash params ── */
 function getHashParam(key) {
@@ -116,7 +116,7 @@ async function loadPost() {
 
     // Fetch and render markdown from object storage
     try {
-        const response = await fetch(`${STORAGE_BASE_URL}/${blog.file}`);
+        const response = await fetch(`${POST_STORAGE_BASE_URL}/${blog.file}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const mdText = await response.text();
@@ -125,7 +125,7 @@ async function loadPost() {
     } catch (err) {
         showError(
             `Could not load the article file.<br>
-       <small>Expected URL: <code>${STORAGE_BASE_URL}/${blog.file}</code></small><br>
+       <small>Expected URL: <code>${POST_STORAGE_BASE_URL}/${blog.file}</code></small><br>
        <small>Ensure your Supabase Storage bucket is public and STORAGE_PUBLIC_URL is correct.</small>`,
             contentEl
         );
