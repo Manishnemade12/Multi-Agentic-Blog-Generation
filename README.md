@@ -145,11 +145,3 @@ For a specific date:
 ```powershell
 .\scripts\start.ps1 -Generate -Date 2026-10-16
 ```
-
-Supabase Storage exposes public files at:
-
-```text
-https://<project-ref>.supabase.co/storage/v1/object/public/blogboard/<object-key>
-```
-
-The application uses the S3-compatible Supabase Storage API through `boto3` for server-side reads and writes. Only the public read URL is used by the browser.
