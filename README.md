@@ -131,12 +131,11 @@ BlogBoard uses **Supabase Storage only** for Markdown files and `articles.json`.
 5. Set the values in `.env`:
 
    ```dotenv
-   supabase__url="https://<project-ref>.supabase.co"
    supabase__s3_endpoint="https://<project-ref>.storage.supabase.co/storage/v1/s3"
-   supabase__region="us-east-1"
-   supabase__bucket_name="blogboard"
-   supabase__access_key_id="..."
-   supabase__secret_access_key="..."
+   b2__region="us-east-1"
+   b2__bucket_name="blogboard"
+   b2__application_key_id="..."
+   b2__application_key="..."
    ```
 
 6. Set the browser-safe public URL in `blogboard/web/js/config.js`:
@@ -147,28 +146,35 @@ BlogBoard uses **Supabase Storage only** for Markdown files and `articles.json`.
    };
    ```
 
-   Never put `supabase__secret_access_key`, a service-role key, or any S3 credential in this JavaScript file.
+   Never put `b2__application_key`, a service-role key, or any S3 credential in this JavaScript file.
 
-### Move existing B2 objects
+The existing article data has already been moved to the configured Supabase bucket. Object keys remain unchanged, so article metadata continues to work.
 
-Keep the existing B2 values in `.env` temporarily, alongside the Supabase values:
+### Start frontend and generator together
 
-```dotenv
-b2__endpoint="https://s3.<region>.backblazeb2.com"
-b2__region="<region>"
-b2__bucket_name="<old-bucket>"
-b2__application_key_id="..."
-b2__application_key="..."
-```
-
-Then run:
+On Windows, run the single startup script:
 
 ```powershell
-python scripts/migrate_b2_to_supabase.py --dry-run
-python scripts/migrate_b2_to_supabase.py
+.\scripts\start.ps1
 ```
 
-The migration copies object keys unchanged, so existing article metadata continues to work. After checking the Supabase bucket and the website, the old B2 settings can be removed from `.env`.
+This starts the static frontend at `http://localhost:8000`. To also generate and publish one tutorial article:
+
+```powershell
+.\scripts\start.ps1 -Generate
+```
+
+To generate AI News instead:
+
+```powershell
+.\scripts\start.ps1 -Generate -News
+```
+
+For a specific date:
+
+```powershell
+.\scripts\start.ps1 -Generate -Date 2026-10-16
+```
 
 Supabase Storage exposes public files at:
 

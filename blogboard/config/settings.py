@@ -17,19 +17,13 @@ class TagSettings(BaseModel):
     ainews: Dict[str, str] = {"label": "AI News", "shortLabel": "AI News"}
 
 class B2Settings(BaseModel):
-    ENDPOINT: str = ""
     REGION: str = ""
     BUCKET_NAME: str = ""
     APPLICATION_KEY_ID: str = ""
     APPLICATION_KEY: str = ""
 
 class SupabaseStorageSettings(BaseModel):
-    URL: str = ""
     S3_ENDPOINT: str = ""
-    REGION: str = "us-east-1"
-    BUCKET_NAME: str = "blogboard"
-    ACCESS_KEY_ID: str = ""
-    SECRET_ACCESS_KEY: str = ""
 
 class ContentAPISettings(BaseModel):
     TAVILY_API_KEY: str
