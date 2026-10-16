@@ -22,6 +22,52 @@ Powered by **LangGraph** for stateful workflow execution and **Groq** for blazin
 This will help you understand how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
+## Run Locally on Windows
+
+Open PowerShell in the repository root:
+
+```powershell
+cd "C:\Users\manis\Desktop\New folder (5)\Multi-Agentic-Blog-Generation"
+```
+
+Install the Python dependencies:
+
+```powershell
+python -m pip install -e .
+```
+
+Make sure `.env` contains the Groq, Supabase Storage, Tavily, and Guardian credentials. Then start the local website:
+
+```powershell
+.\scripts\start.ps1
+```
+
+Open the dashboard in your browser:
+
+```text
+http://localhost:8000
+```
+
+To generate and publish a tutorial article through Groq and Supabase Storage:
+
+```powershell
+.\scripts\start.ps1 -Generate
+```
+
+To generate and publish an AI News article using the news research APIs:
+
+```powershell
+.\scripts\start.ps1 -Generate -News
+```
+
+To generate an article for a specific date:
+
+```powershell
+.\scripts\start.ps1 -Generate -Date 2026-10-16
+```
+
+The frontend reads public `articles.json` and Markdown files from Supabase Storage. The Supabase secret credentials remain server-side in `.env` and must never be added to frontend JavaScript.
+
 ## Installation Steps
 
 ### Installation from GitHub
