@@ -177,7 +177,7 @@ BlogBoard uses **Supabase Storage only** for Markdown files and `articles.json`.
 5. Set the values in `.env`:
 
    ```dotenv
-   supabase__s3_endpoint="https://<project-ref>.storage.supabase.co/storage/v1/s3"
+   s3_endpoint="https://<project-ref>.storage.supabase.co/storage/v1/s3"
    b2__region="us-east-1"
    b2__bucket_name="blogboard"
    b2__application_key_id="..."
@@ -188,7 +188,7 @@ BlogBoard uses **Supabase Storage only** for Markdown files and `articles.json`.
 
    ```js
    window.CONFIG = {
-     STORAGE_PUBLIC_URL: "https://<project-ref>.supabase.co/storage/v1/object/public/blogboard"
+     STORAGE_PUBLIC_URL: "https://<project-ref>.co/storage/v1/object/public/blogboard"
    };
    ```
 

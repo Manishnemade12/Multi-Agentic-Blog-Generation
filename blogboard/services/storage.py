@@ -10,11 +10,11 @@ class SupabaseStorageService:
 
     def __init__(self):
         settings = app_settings.b2
-        endpoint = app_settings.supabase.S3_ENDPOINT
+        endpoint = app_settings.S3_ENDPOINT
         self.bucket_name = settings.BUCKET_NAME.strip().strip(' ="')
         if not endpoint or not settings.APPLICATION_KEY_ID or not settings.APPLICATION_KEY:
             raise RuntimeError(
-                "Supabase Storage is not configured. Set supabase__s3_endpoint, "
+                "Supabase Storage is not configured. Set s3_endpoint, "
                 "b2__application_key_id, and b2__application_key in .env."
             )
         self.client = boto3.client(

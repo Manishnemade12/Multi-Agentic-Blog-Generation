@@ -22,9 +22,6 @@ class B2Settings(BaseModel):
     APPLICATION_KEY_ID: str = ""
     APPLICATION_KEY: str = ""
 
-class SupabaseStorageSettings(BaseModel):
-    S3_ENDPOINT: str = ""
-
 class ContentAPISettings(BaseModel):
     TAVILY_API_KEY: str
     GUARDIAN_API_KEY: str
@@ -34,7 +31,10 @@ class Settings(BaseSettings):
     llm: LLMSettings
     tags: TagSettings = Field(default_factory=TagSettings)
     b2: B2Settings = Field(default_factory=B2Settings)
-    supabase: SupabaseStorageSettings = Field(default_factory=SupabaseStorageSettings)
+    S3_ENDPOINT: str = Field(
+        default="",
+        validation_alias=AliasChoices("s3_endpoint", "S3_ENDPOINT"),
+    )
     content: ContentAPISettings
 
     model_config = SettingsConfigDict(
