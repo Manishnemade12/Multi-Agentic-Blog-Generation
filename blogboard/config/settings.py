@@ -1,0 +1,53 @@
+from typing import Dict
+from pydantic import BaseModel, Field, AliasChoices
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+class LLMSettings(BaseModel):
+    API_KEY: str = Field(validation_alias=AliasChoices('API_KEY', 'api_key', 'GROQ_API_KEY', 'groq_api_key'))
+    MODEL_NAME: str = "openai/gpt-oss-20b"
+    TEMPERATURE: float = 1.0
+
+class TagSettings(BaseModel):
+    ml: Dict[str, str] = {"label": "Machine Learning", "shortLabel": "ML"}
+    dl: Dict[str, str] = {"label": "Deep Learning", "shortLabel": "DL"}
+    statistics: Dict[str, str] = {"label": "Statistics for AI", "shortLabel": "Stats"}
+    nlp: Dict[str, str] = {"label": "Natural Language Processing", "shortLabel": "NLP"}
+    cv: Dict[str, str] = {"label": "Computer Vision", "shortLabel": "CV"}
+    genai: Dict[str, str] = {"label": "Generative AI", "shortLabel": "Gen AI"}
+    ainews: Dict[str, str] = {"label": "AI News", "shortLabel": "AI News"}
+
+class B2Settings(BaseModel):
+    ENDPOINT: str = ""
+    REGION: str = ""
+    BUCKET_NAME: str = ""
+    APPLICATION_KEY_ID: str = ""
+    APPLICATION_KEY: str = ""
+
+class SupabaseStorageSettings(BaseModel):
+    URL: str = ""
+    S3_ENDPOINT: str = ""
+    REGION: str = "us-east-1"
+    BUCKET_NAME: str = "blogboard"
+    ACCESS_KEY_ID: str = ""
+    SECRET_ACCESS_KEY: str = ""
+
+class ContentAPISettings(BaseModel):
+    TAVILY_API_KEY: str
+    GUARDIAN_API_KEY: str
+    UNSPLASH_API_KEY: str
+
+class Settings(BaseSettings):
+    llm: LLMSettings
+    tags: TagSettings = Field(default_factory=TagSettings)
+    b2: B2Settings = Field(default_factory=B2Settings)
+    supabase: SupabaseStorageSettings = Field(default_factory=SupabaseStorageSettings)
+    content: ContentAPISettings
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        env_nested_delimiter="__",
+        extra="ignore"
+    )
+
+app_settings = Settings()

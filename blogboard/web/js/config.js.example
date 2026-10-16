@@ -1,0 +1,4 @@
+﻿// Copy to config.js. Public URLs only; never include storage credentials.
+window.CONFIG = {
+    STORAGE_PUBLIC_URL: "https://<project-ref>.supabase.co/storage/v1/object/public/blogboard"
+};
